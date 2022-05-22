@@ -1,4 +1,4 @@
-package com.patikadev.onlinebanking.entity;
+package com.patikadev.onlinebanking.model.entity;
 
 import lombok.Getter;
 

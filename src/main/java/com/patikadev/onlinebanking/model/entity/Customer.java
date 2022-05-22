@@ -1,4 +1,4 @@
-package com.patikadev.onlinebanking.entity;
+package com.patikadev.onlinebanking.model.entity;
 
 import com.patikadev.onlinebanking.model.enums.Gender;
 import lombok.Getter;
