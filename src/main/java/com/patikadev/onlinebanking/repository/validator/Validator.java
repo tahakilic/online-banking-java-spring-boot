@@ -1,4 +1,4 @@
-package com.patikadev.onlinebanking.validator;
+package com.patikadev.onlinebanking.repository.validator;
 
 import com.patikadev.onlinebanking.exception.BaseException;
 

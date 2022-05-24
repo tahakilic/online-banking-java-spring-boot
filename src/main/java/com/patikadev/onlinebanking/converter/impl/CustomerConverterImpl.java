@@ -8,13 +8,15 @@ import com.patikadev.onlinebanking.model.dto.CustomerAddressDTO;
 import com.patikadev.onlinebanking.model.entity.*;
 import com.patikadev.onlinebanking.model.enums.AccountStatus;
 import com.patikadev.onlinebanking.model.request.CreateCustomerRequest;
+import com.patikadev.onlinebanking.model.request.UpdateCustomerRequest;
 import com.patikadev.onlinebanking.model.response.CustomerResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
-
 public class CustomerConverterImpl implements CustomerConverter {
 
     @Override
@@ -28,22 +30,14 @@ public class CustomerConverterImpl implements CustomerConverter {
                 customer.getBirthDay(),
                 customer.getGender(),
                 contactInformationToContactInformationDTO(customer.getContactInformation())
+
         );
         return customerResponse;
     }
 
-    private ContactInformationDTO  contactInformationToContactInformationDTO(ContactInformation contactInformation) {
-       return  new ContactInformationDTO(
-                contactInformation.getPrimaryEmail(),
-               contactInformation.getSecondaryEmail(),
-               contactInformation.getPrimaryPhoneNumber(),
-               contactInformation.getSecondaryPhoneNumber()
-        );
-
-    }
 
     @Override
-    public Customer customerRequestToCustomer(CreateCustomerRequest createCustomerRequest) {
+    public Customer createCustomerRequestToCustomer(CreateCustomerRequest createCustomerRequest) {
         Customer customer = new Customer();
         customer.setName(createCustomerRequest.name());
         customer.setMiddleName(createCustomerRequest.middleName());
@@ -56,6 +50,19 @@ public class CustomerConverterImpl implements CustomerConverter {
         customer.addAddress(customerAddressDTOToCustomerAddress(createCustomerRequest.customerAddress()));
 
         customer.addAccount(accountDTOToAccount(createCustomerRequest.account()));
+        return customer;
+    }
+
+    @Override
+    public Customer updateCustomerRequestToCustomer(Customer customer,UpdateCustomerRequest customerRequest) {
+        customer.setName(customerRequest.name());
+        customer.setMiddleName(customerRequest.middleName());
+        customer.setLastName(customerRequest.lastName());
+        customer.setIdentityNumber(customerRequest.identityNumber());
+        customer.setBirthDay(customerRequest.birthDay());
+        customer.setGender(customerRequest.gender());
+        customer.setContactInformation(contactInformationDTOToContactInformation(customerRequest.contactInformation()));
+
         return customer;
     }
 
@@ -98,6 +105,17 @@ public class CustomerConverterImpl implements CustomerConverter {
         contactInformation.setPrimaryPhoneNumber(contactInformationDTO.primaryPhoneNumber());
         contactInformation.setSecondaryPhoneNumber(contactInformationDTO.secondaryPhoneNumber());
         return contactInformation;
+    }
+
+
+    private ContactInformationDTO  contactInformationToContactInformationDTO(ContactInformation contactInformation) {
+        return  new ContactInformationDTO(
+                contactInformation.getPrimaryEmail(),
+                contactInformation.getSecondaryEmail(),
+                contactInformation.getPrimaryPhoneNumber(),
+                contactInformation.getSecondaryPhoneNumber()
+        );
+
     }
 
 

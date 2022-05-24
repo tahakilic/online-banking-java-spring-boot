@@ -1,4 +1,4 @@
-package com.patikadev.onlinebanking.validator;
+package com.patikadev.onlinebanking.repository.validator;
 
 import com.patikadev.onlinebanking.exception.BaseException;
 import com.patikadev.onlinebanking.exception.ValidationOperationException;
@@ -9,7 +9,7 @@ public class IDValidator implements Validator<Long> {
     @Override
     public void validate(Long id) throws BaseException {
         if (id <= 0) {
-            throw new ValidationOperationException.IDNotValidException("ID 0 veya 0'dan küçük olamaz!");
+            throw new ValidationOperationException.IDNotValidException("ID cannot be less than or equal to zero!");
         }
     }
 }

@@ -15,4 +15,16 @@ public final class ValidationOperationException {
             super(message);
         }
     }
+
+    public static class EmailFormatIsIncorrectException extends BaseException{
+        public EmailFormatIsIncorrectException(String message) {
+            super(message);
+        }
+    }
+
+    public static class AccountNotValidException extends BaseException {
+        public AccountNotValidException(String message) {
+            super(message);
+        }
+    }
 }

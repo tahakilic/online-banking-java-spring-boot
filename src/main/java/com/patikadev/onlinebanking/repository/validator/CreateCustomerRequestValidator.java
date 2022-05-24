@@ -1,4 +1,4 @@
-package com.patikadev.onlinebanking.validator;
+package com.patikadev.onlinebanking.repository.validator;
 
 import com.patikadev.onlinebanking.exception.BaseException;
 import com.patikadev.onlinebanking.exception.ValidationOperationException;
@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Component
 public class CreateCustomerRequestValidator implements Validator<CreateCustomerRequest> {
@@ -47,25 +45,14 @@ public class CreateCustomerRequestValidator implements Validator<CreateCustomerR
         if (!(StringUtils.hasLength(createcustomerRequest.customerAddress().district()))) {
             throw new ValidationOperationException.CustomerNotValidException("Customer address district can not be null or empty!");
         }
-
-        /*if (!(Gender.MALE.equals(customerRequest.gender())) && !(Gender.FEMALE.equals(customerRequest.gender())) && !(Gender.ODER.equals(customerRequest.gender()))) {
-            throw new ValidationOperationException.CustomerNotValidException("Customer gender is not compatible. it must be MALE, FEMALE or ODER!");
-        } ----------------Nasıl yapılır bakılacak*/
-
-        if(!(isEmail(createcustomerRequest.contactInformation().primaryEmail()))){
-            throw new ValidationOperationException.CustomerNotValidException("Customer primaryEmail is not in the correct format!");
+        if (Objects.isNull(createcustomerRequest.account())) {
+            throw new ValidationOperationException.AccountNotValidException("Account can not be null or empty!");
         }
-        if(!(isEmail(createcustomerRequest.contactInformation().secondaryEmail()))){
-            throw new ValidationOperationException.CustomerNotValidException("Customer secondaryEmail is not in the correct format!");
-        }
+
+
 
     }
 
-    public boolean isEmail(String email){
-        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}";
-        Pattern pattern=Pattern.compile(regex);
-        Matcher matcher= pattern.matcher(email);
-        return matcher.matches();
-    }
+
 
 }

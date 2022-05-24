@@ -24,7 +24,6 @@ public class ControllerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<?> databaseValidationException(DataIntegrityViolationException exception){
        return ResponseEntity.badRequest().body(new ApiError(exception.getLocalizedMessage()));
-
     }
 
     //for Validation
