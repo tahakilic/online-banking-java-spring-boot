@@ -1,5 +1,5 @@
 package com.patikadev.onlinebanking.model.enums;
 
 public enum Gender {
-    MALE, FEMALE, ODER;
+    MALE, FEMALE, OTHER
 }

@@ -10,7 +10,8 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @Setter
-public class Card extends BaseExtendModel{
+public class Card extends BaseExtendEntity {
+
     private String cardNumber;
     private BigDecimal usableLimit;
 

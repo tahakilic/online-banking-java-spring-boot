@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-public class Transfer extends BaseModel{
+public class Transfer extends BaseEntity {
 
     private BigDecimal amount;
     private CurrencyCode currencyCode;

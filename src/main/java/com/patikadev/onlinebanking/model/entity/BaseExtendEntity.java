@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @MappedSuperclass
-public class BaseExtendModel extends BaseModel{
+public class BaseExtendEntity extends BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     public Date createdAt;
     @Temporal(TemporalType.TIMESTAMP)

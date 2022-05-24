@@ -1,5 +1,7 @@
 package com.patikadev.onlinebanking.model.enums;
 
 public enum AccountType {
-    DEPOSIT, SAVINGS;
+    CHECKING_ACCOUNT,
+    DEPOSIT_ACCOUNT,
+    FLEXIBLE_ACCOUNT
 }

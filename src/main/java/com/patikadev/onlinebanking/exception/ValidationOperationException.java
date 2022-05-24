@@ -10,4 +10,9 @@ public final class ValidationOperationException {
         }
     }
 
+    public static class CustomerNotValidException extends BaseException {
+        public CustomerNotValidException(String message) {
+            super(message);
+        }
+    }
 }
