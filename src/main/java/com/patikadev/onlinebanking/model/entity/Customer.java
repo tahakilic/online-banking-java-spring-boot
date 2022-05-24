@@ -5,12 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.util.StringUtils;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.Past;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,8 +25,7 @@ public class Customer extends BaseExtendEntity {
     private String lastName;
 
     @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
-    @Past
+    @Past(message = "birthDay must be a past date!")
     private Date birthDay;
 
     @Enumerated(EnumType.ORDINAL)
@@ -41,7 +38,7 @@ public class Customer extends BaseExtendEntity {
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<CustomerAddress> customerAddress = new HashSet<>();
 
-    //private CustomerStatus customerStatus;
+
 
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<Account> accounts=new HashSet<>();
@@ -51,8 +48,9 @@ public class Customer extends BaseExtendEntity {
     private Set<Card> cards=new HashSet<>();
 
     @Transient
-    private String getFullName = getName() + "" + (StringUtils.hasLength(getMiddleName()) ? getMiddleName() : "") + getLastName();
-
+    public String getFullName () {
+        return getName() + " " + (StringUtils.hasLength(getMiddleName()) ? getMiddleName() : "") + getLastName();
+    }
     public void addAddress(CustomerAddress customerAddress){
         customerAddress.setCustomer(this);
         this.customerAddress.add(customerAddress);

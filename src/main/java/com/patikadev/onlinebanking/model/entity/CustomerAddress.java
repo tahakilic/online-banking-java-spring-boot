@@ -1,8 +1,10 @@
 package com.patikadev.onlinebanking.model.entity;
 
+import com.patikadev.onlinebanking.model.enums.AddressType;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -10,11 +12,13 @@ import javax.persistence.ManyToOne;
 @Getter
 @Setter
 public class CustomerAddress extends BaseEntity {
-
-    private String phoneNumber;
+    @Column(nullable = false)
     private String country;
+    @Column(nullable = false)
     private String city;
-    private String postalCode;
+    @Column(nullable = false)
+    private String district;
+    private AddressType addressType;
     private String description;
 
     @ManyToOne

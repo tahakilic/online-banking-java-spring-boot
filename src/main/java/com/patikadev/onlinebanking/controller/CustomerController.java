@@ -1,6 +1,6 @@
 package com.patikadev.onlinebanking.controller;
 
-import com.patikadev.onlinebanking.model.request.CustomerRequest;
+import com.patikadev.onlinebanking.model.request.CreateCustomerRequest;
 import com.patikadev.onlinebanking.model.response.CustomerResponse;
 import com.patikadev.onlinebanking.service.CustomerService;
 import com.patikadev.onlinebanking.validator.CreateCustomerRequestValidator;
@@ -8,8 +8,6 @@ import com.patikadev.onlinebanking.validator.IDValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/api/customers")
@@ -26,7 +24,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createCustomer(@RequestBody @Valid CustomerRequest customerRequest){
+    public ResponseEntity<?> createCustomer(@RequestBody CreateCustomerRequest customerRequest){
         createCustomerRequestValidator.validate(customerRequest);
         return ResponseEntity.ok(customerService.createCustomer(customerRequest));
     }

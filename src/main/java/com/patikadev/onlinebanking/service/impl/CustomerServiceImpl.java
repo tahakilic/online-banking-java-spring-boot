@@ -3,7 +3,7 @@ package com.patikadev.onlinebanking.service.impl;
 import com.patikadev.onlinebanking.converter.CustomerConverter;
 import com.patikadev.onlinebanking.exception.ServiceOperationException;
 import com.patikadev.onlinebanking.model.entity.Customer;
-import com.patikadev.onlinebanking.model.request.CustomerRequest;
+import com.patikadev.onlinebanking.model.request.CreateCustomerRequest;
 import com.patikadev.onlinebanking.model.response.CustomerResponse;
 import com.patikadev.onlinebanking.repository.CustomerRepository;
 import com.patikadev.onlinebanking.service.CustomerService;
@@ -24,7 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponse createCustomer(CustomerRequest customerRequest) {
+    public CustomerResponse createCustomer(CreateCustomerRequest customerRequest) {
         Customer customer=customerConverter.customerRequestToCustomer(customerRequest);
         Customer getCustomer=customerRepository.save(customer);
         return customerConverter.customerToCustomerResponse(getCustomer);

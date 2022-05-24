@@ -2,7 +2,6 @@ package com.patikadev.onlinebanking.model.entity;
 
 import com.patikadev.onlinebanking.model.enums.AccountStatus;
 import com.patikadev.onlinebanking.model.enums.AccountType;
-import com.patikadev.onlinebanking.model.enums.CurrencyCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,13 +15,6 @@ import java.util.Date;
 @Getter
 @Setter
 public class Account extends BaseEntity {
-
-    @ManyToOne
-    private Currency currency;
-
-    @ManyToOne
-    private Customer customer;
-
     @Column(nullable = false)
     private String iban;
 
@@ -57,4 +49,12 @@ public class Account extends BaseEntity {
     @Column(nullable = false)
     @PositiveOrZero
     private BigDecimal lockedBalance=BigDecimal.ZERO;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Currency currency;
+
+    @ManyToOne
+    private Customer customer;
+
+
 }

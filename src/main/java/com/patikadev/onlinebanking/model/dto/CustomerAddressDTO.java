@@ -1,8 +1,10 @@
 package com.patikadev.onlinebanking.model.dto;
 
-public record CustomerAddressDTO(String phoneNumber,
-                                 String country,
+import com.patikadev.onlinebanking.model.enums.AddressType;
+
+public record CustomerAddressDTO(String country,
                                  String city,
-                                 String postalCode,
+                                 String district,
+                                 AddressType addressType,
                                  String description) {
 }

@@ -1,14 +1,17 @@
 package com.patikadev.onlinebanking.model.response;
 
-import com.patikadev.onlinebanking.model.dto.CustomerAddressDTO;
+import com.patikadev.onlinebanking.model.dto.ContactInformationDTO;
 import com.patikadev.onlinebanking.model.enums.Gender;
 
+import java.util.Date;
+
 public record CustomerResponse(Long id,
-                               String firstName,
+                               String name,
+                               String middleName,
                                String lastName,
-                               String email,
-                               String phoneNumber,
+                               Long identityNumber,
+                               Date birthDay,
                                Gender gender,
-                               CustomerAddressDTO customerAddressDTO) {
+                               ContactInformationDTO contactInformation) {
 
 }
