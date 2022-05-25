@@ -13,8 +13,6 @@ import com.patikadev.onlinebanking.model.response.CustomerResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Component
 public class CustomerConverterImpl implements CustomerConverter {

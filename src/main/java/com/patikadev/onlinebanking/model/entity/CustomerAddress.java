@@ -1,12 +1,9 @@
 package com.patikadev.onlinebanking.model.entity;
-
 import com.patikadev.onlinebanking.model.enums.AddressType;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -18,6 +15,7 @@ public class CustomerAddress extends BaseEntity {
     private String city;
     @Column(nullable = false)
     private String district;
+    @Enumerated(EnumType.ORDINAL)
     private AddressType addressType;
     private String description;
 
