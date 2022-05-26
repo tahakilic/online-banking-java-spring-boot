@@ -3,6 +3,7 @@ package com.patikadev.onlinebanking.controller;
 import com.patikadev.onlinebanking.model.dto.CustomerAddressDTO;
 import com.patikadev.onlinebanking.model.request.CreateCustomerRequest;
 import com.patikadev.onlinebanking.model.request.UpdateCustomerRequest;
+import com.patikadev.onlinebanking.model.response.CustomerAddressResponse;
 import com.patikadev.onlinebanking.model.response.CustomerResponse;
 import com.patikadev.onlinebanking.service.CustomerService;
 import com.patikadev.onlinebanking.validator.*;
@@ -22,6 +23,7 @@ public class CustomerController {
     private final UpdateCustomerRequestValidator updateCustomerRequestValidator;
     private final EmailValidator emailValidator;
     private final CustomerAddressValidator customerAddressValidator;
+    private final CreateAccountDTOValidator createAccountValidator;
 
     @GetMapping(path = "/{customerId}")
     public ResponseEntity<CustomerResponse> getCustomer(@PathVariable Long customerId) {
@@ -32,6 +34,7 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<String> createCustomer(@RequestBody CreateCustomerRequest customerRequest) {
         createCustomerRequestValidator.validate(customerRequest);
+        createAccountValidator.validate(customerRequest.account());
         emailValidator.validate(customerRequest.contactInformation().primaryEmail());
         return ResponseEntity.ok(customerService.createCustomer(customerRequest));
     }
@@ -60,7 +63,7 @@ public class CustomerController {
     }
 
     @GetMapping(path = "/{customerId}/addresses")
-    public ResponseEntity<List<CustomerAddressDTO>> getCustomerAllAddress(@PathVariable Long customerId) {
+    public ResponseEntity<List<CustomerAddressResponse>> getCustomerAllAddress(@PathVariable Long customerId) {
         idValidator.validate(customerId);
         return ResponseEntity.ok(customerService.getCustomerAllAddress(customerId));
     }
@@ -70,6 +73,12 @@ public class CustomerController {
         idValidator.validate(customerId);
         customerAddressValidator.validate(customerAddressDTO);
         return ResponseEntity.ok(customerService.addCustomerAddress(customerId,customerAddressDTO));
+    }
+
+    @DeleteMapping(path = "/addresses/{customerAddressId}")
+    public ResponseEntity<String> deleteCustomerAddress(@PathVariable Long customerAddressId){
+        idValidator.validate(customerAddressId);
+        return ResponseEntity.ok(customerService.deleteCustomerAddress(customerAddressId));
     }
 
 

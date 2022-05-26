@@ -1,9 +1,10 @@
 package com.patikadev.onlinebanking.model.dto;
 
 import com.patikadev.onlinebanking.model.enums.AccountType;
+import com.patikadev.onlinebanking.model.enums.CurrencyType;
 
 public record AccountDTO(AccountType accountType,
-                         CurrencyDTO currency,
+                         CurrencyType currencyType,
                          String bankCode,
                          String branchCode,
                          Long accountNumber,

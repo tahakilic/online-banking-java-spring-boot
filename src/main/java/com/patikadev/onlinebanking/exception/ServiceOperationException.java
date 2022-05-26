@@ -9,4 +9,16 @@ public final class ServiceOperationException {
             super(message);
         }
     }
+
+    public static class CustomerAddressNotValidException extends BaseException {
+        public CustomerAddressNotValidException(String message) {
+            super(message);
+        }
+    }
+
+    public static class AccountNotValidException extends BaseException {
+        public AccountNotValidException(String message) {
+            super(message);
+        }
+    }
 }

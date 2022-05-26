@@ -8,6 +8,7 @@ import com.patikadev.onlinebanking.model.entity.Customer;
 import com.patikadev.onlinebanking.model.entity.CustomerAddress;
 import com.patikadev.onlinebanking.model.request.CreateCustomerRequest;
 import com.patikadev.onlinebanking.model.request.UpdateCustomerRequest;
+import com.patikadev.onlinebanking.model.response.CustomerAddressResponse;
 import com.patikadev.onlinebanking.model.response.CustomerResponse;
 import com.patikadev.onlinebanking.repository.CustomerAddressRepository;
 import com.patikadev.onlinebanking.repository.CustomerRepository;
@@ -38,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
     public String createCustomer(CreateCustomerRequest customerRequest) {
         Customer customer=customerConverter.createCustomerRequestToCustomer(customerRequest);
         Customer save=customerRepository.save(customer);
-        return  !(save.getId().equals(null))?"successful":"unsuccessful";
+        return save.getId() != null ?"successful":"unsuccessful";
     }
 
     @Transactional
@@ -49,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer newCustomer=customerConverter.updateCustomerRequestToCustomer(customer,customerRequest);
         Customer save = customerRepository.save(newCustomer);
-        return !(save.getId().equals(null))?"successful":"unsuccessful";
+        return save.getId() != null ?"successful":"unsuccessful";
     }
 
     @Override
@@ -67,17 +68,17 @@ public class CustomerServiceImpl implements CustomerService {
 
         CustomerAddress newCustomerAddress=customerAddressConverter.customerAddressDTOToCustomerAddress(customerAddress,customerAddressDTO);
         CustomerAddress save = customerAddressRepository.save(newCustomerAddress);
-        return !(save.getId().equals(null))?"successful":"unsuccessful";
+        return save.getId() != null ?"successful":"unsuccessful";
     }
 
     @Override
-    public List<CustomerAddressDTO> getCustomerAllAddress(Long id) {
+    public List<CustomerAddressResponse> getCustomerAllAddress(Long id) {
 
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new ServiceOperationException.CustomerNotValidException("Customer not found!"));
         List<CustomerAddress> customerAddressList = customerAddressRepository.findByCustomer(customer);
-        List<CustomerAddressDTO> customerAddressDTOList = customerAddressConverter.customerAddressListToCustomerAddressDTOList(customerAddressList);
-        return customerAddressDTOList;
+        List<CustomerAddressResponse> customerAddressResponsesList = customerAddressConverter.customerAddressListToCustomerAddressResponseList(customerAddressList);
+        return customerAddressResponsesList;
 
     }
 
@@ -88,6 +89,14 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerAddress customerAddress = customerAddressConverter.customerAddressDTOToCustomerAddress(customer, customerAddressDTO);
 
         CustomerAddress save = customerAddressRepository.save(customerAddress);
-        return !(save.getId().equals(null))?"successful":"unsuccessful";
+        return save.getId() != null ?"successful":"unsuccessful";
+    }
+
+    @Override
+    public String deleteCustomerAddress(Long customerAddressId) {
+        customerAddressRepository.findById(customerAddressId)
+                .orElseThrow(()-> new ServiceOperationException.CustomerAddressNotValidException("Customer address not found!"));
+        customerAddressRepository.deleteById(customerAddressId);
+        return "successful";
     }
 }

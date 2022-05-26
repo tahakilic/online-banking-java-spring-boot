@@ -46,25 +46,6 @@ public class CreateCustomerRequestValidator implements Validator<CreateCustomerR
             throw new ValidationOperationException.CustomerNotValidException("Customer address district can not be null or empty!");
         }
 
-        if (Objects.isNull(createcustomerRequest.account())) {
-            throw new ValidationOperationException.AccountNotValidException("Customer account can not be null or empty!");
-        }
-        if (!(StringUtils.hasLength(createcustomerRequest.account().iban()))) {
-            throw new ValidationOperationException.AccountNotValidException("Customer account iban can not be null or empty!");
-        }
-        if (!(StringUtils.hasLength(createcustomerRequest.account().bankCode()))) {
-            throw new ValidationOperationException.AccountNotValidException("Customer account bankCode can not be null or empty!");
-        }
-        if (!(StringUtils.hasLength(createcustomerRequest.account().branchCode()))) {
-            throw new ValidationOperationException.AccountNotValidException("Customer account branchCode can not be null or empty!");
-        }
-
-        if (createcustomerRequest.account().accountNumber()<1) {
-            throw new ValidationOperationException.AccountNotValidException("Customer account accountNumber can not be zero or negative!");
-        }
-
     }
-
-
 
 }

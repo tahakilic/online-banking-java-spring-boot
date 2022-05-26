@@ -1,21 +1,24 @@
 package com.patikadev.onlinebanking.converter.impl;
 
 import com.patikadev.onlinebanking.converter.CustomerConverter;
-import com.patikadev.onlinebanking.model.dto.AccountDTO;
 import com.patikadev.onlinebanking.model.dto.ContactInformationDTO;
-import com.patikadev.onlinebanking.model.dto.CurrencyDTO;
 import com.patikadev.onlinebanking.model.dto.CustomerAddressDTO;
-import com.patikadev.onlinebanking.model.entity.*;
-import com.patikadev.onlinebanking.model.enums.AccountStatus;
+import com.patikadev.onlinebanking.model.entity.ContactInformation;
+import com.patikadev.onlinebanking.model.entity.Customer;
+import com.patikadev.onlinebanking.model.entity.CustomerAddress;
+import com.patikadev.onlinebanking.model.enums.Gender;
 import com.patikadev.onlinebanking.model.request.CreateCustomerRequest;
 import com.patikadev.onlinebanking.model.request.UpdateCustomerRequest;
 import com.patikadev.onlinebanking.model.response.CustomerResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
 @Component
+@RequiredArgsConstructor
 public class CustomerConverterImpl implements CustomerConverter {
+    private final AccountConverterImpl accountConverterImpl;
 
     @Override
     public CustomerResponse customerToCustomerResponse(Customer customer) {
@@ -37,54 +40,54 @@ public class CustomerConverterImpl implements CustomerConverter {
     @Override
     public Customer createCustomerRequestToCustomer(CreateCustomerRequest createCustomerRequest) {
         Customer customer = new Customer();
-        customer.setName(createCustomerRequest.name());
-        customer.setMiddleName(createCustomerRequest.middleName());
-        customer.setLastName(createCustomerRequest.lastName());
-        customer.setIdentityNumber(createCustomerRequest.identityNumber());
-        customer.setBirthDay(createCustomerRequest.birthDay());
-        customer.setGender(createCustomerRequest.gender());
-        customer.setContactInformation(contactInformationDTOToContactInformation(createCustomerRequest.contactInformation()));
+        toCustomer(customer,
+                createCustomerRequest.name(),
+                createCustomerRequest.middleName(),
+                createCustomerRequest.lastName(),
+                createCustomerRequest.identityNumber(),
+                createCustomerRequest.birthDay(),
+                createCustomerRequest.gender(),
+                createCustomerRequest.contactInformation());
 
         customer.addAddress(customerAddressDTOToCustomerAddress(createCustomerRequest.customerAddress()));
 
-        customer.addAccount(accountDTOToAccount(createCustomerRequest.account()));
+        customer.addAccount(AccountConverterImpl.accountDTOToAccount(createCustomerRequest.account()));
         return customer;
     }
 
     @Override
-    public Customer updateCustomerRequestToCustomer(Customer customer,UpdateCustomerRequest customerRequest) {
-        customer.setName(customerRequest.name());
-        customer.setMiddleName(customerRequest.middleName());
-        customer.setLastName(customerRequest.lastName());
-        customer.setIdentityNumber(customerRequest.identityNumber());
-        customer.setBirthDay(customerRequest.birthDay());
-        customer.setGender(customerRequest.gender());
-        customer.setContactInformation(contactInformationDTOToContactInformation(customerRequest.contactInformation()));
+    public Customer updateCustomerRequestToCustomer(Customer customer, UpdateCustomerRequest customerRequest) {
+        toCustomer(customer,
+                customerRequest.name(),
+                customerRequest.middleName(),
+                customerRequest.lastName(),
+                customerRequest.identityNumber(),
+                customerRequest.birthDay(),
+                customerRequest.gender(),
+                customerRequest.contactInformation());
 
         return customer;
     }
 
-    public Account accountDTOToAccount(AccountDTO accountDTO) {
-        Account account=new Account();
-        account.setAccountType(accountDTO.accountType());
-        account.setAccountNumber(accountDTO.accountNumber());
-        account.setCurrency(currencyDTOToCurrency(accountDTO.currency()));
-        account.setBankCode(accountDTO.bankCode());
-        account.setBranchCode(accountDTO.branchCode());
-        account.setAccountNumber(accountDTO.accountNumber());
-        account.setIban(accountDTO.iban());
-        account.setAccountStatus(AccountStatus.ACTIVE);
-        account.setCreatedAt(new Date());
-        return account;
+    private Customer toCustomer(Customer customer,
+                                String name,
+                                String middleName,
+                                String lastNane,
+                                Long identityNumber,
+                                Date birthDay,
+                                Gender gender,
+                                ContactInformationDTO contactInformationDTO) {
+        customer.setName(name);
+        customer.setMiddleName(middleName);
+        customer.setLastName(lastNane);
+        customer.setIdentityNumber(identityNumber);
+        customer.setBirthDay(birthDay);
+        customer.setGender(gender);
+        customer.setContactInformation(contactInformationDTOToContactInformation(contactInformationDTO));
+        return customer;
+
     }
 
-    public Currency currencyDTOToCurrency(CurrencyDTO currencyDTO) {
-        Currency currency= new Currency();
-        currency.setName(currencyDTO.name());
-        currency.setCode(currencyDTO.code());
-        currency.setSymbol(currencyDTO.symbol());
-        return currency;
-    }
 
     public CustomerAddress customerAddressDTOToCustomerAddress(CustomerAddressDTO customerAddressDTO) {
         CustomerAddress customerAddress = new CustomerAddress();
@@ -96,8 +99,8 @@ public class CustomerConverterImpl implements CustomerConverter {
         return customerAddress;
     }
 
-    public ContactInformation contactInformationDTOToContactInformation(ContactInformationDTO contactInformationDTO){
-        ContactInformation contactInformation=new ContactInformation();
+    public ContactInformation contactInformationDTOToContactInformation(ContactInformationDTO contactInformationDTO) {
+        ContactInformation contactInformation = new ContactInformation();
         contactInformation.setPrimaryEmail(contactInformationDTO.primaryEmail());
         contactInformation.setSecondaryEmail(contactInformationDTO.secondaryEmail());
         contactInformation.setPrimaryPhoneNumber(contactInformationDTO.primaryPhoneNumber());
@@ -106,8 +109,8 @@ public class CustomerConverterImpl implements CustomerConverter {
     }
 
 
-    private ContactInformationDTO  contactInformationToContactInformationDTO(ContactInformation contactInformation) {
-        return  new ContactInformationDTO(
+    private ContactInformationDTO contactInformationToContactInformationDTO(ContactInformation contactInformation) {
+        return new ContactInformationDTO(
                 contactInformation.getPrimaryEmail(),
                 contactInformation.getSecondaryEmail(),
                 contactInformation.getPrimaryPhoneNumber(),

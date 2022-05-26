@@ -4,6 +4,7 @@ import com.patikadev.onlinebanking.converter.CustomerAddressConverter;
 import com.patikadev.onlinebanking.model.dto.CustomerAddressDTO;
 import com.patikadev.onlinebanking.model.entity.Customer;
 import com.patikadev.onlinebanking.model.entity.CustomerAddress;
+import com.patikadev.onlinebanking.model.response.CustomerAddressResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -22,10 +23,10 @@ public class CustomerAddressConverterImpl implements CustomerAddressConverter {
     }
 
     @Override
-    public List<CustomerAddressDTO> customerAddressListToCustomerAddressDTOList(List<CustomerAddress> customerAddressList) {
-        List<CustomerAddressDTO> customerAddressDTOList=new ArrayList<>();
+    public List<CustomerAddressResponse> customerAddressListToCustomerAddressResponseList(List<CustomerAddress> customerAddressList) {
+        List<CustomerAddressResponse> customerAddressDTOList=new ArrayList<>();
         for(CustomerAddress customerAddress:customerAddressList){
-            customerAddressDTOList.add(new CustomerAddressDTO(customerAddress.getCountry(),
+            customerAddressDTOList.add(new CustomerAddressResponse(customerAddress.getId(),customerAddress.getCountry(),
                     customerAddress.getCity(),
                     customerAddress.getDistrict(),
                     customerAddress.getAddressType(),
