@@ -17,13 +17,5 @@ public class BaseExtendEntity extends BaseEntity {
     public Date createdAt;
     @Temporal(TemporalType.TIMESTAMP)
     public Date updatedAt;
-    @Temporal(TemporalType.TIMESTAMP)
-    public Date deletedAt;
 
-    @Column(length = 50)
-    public String createdBy;
-    @Column(length = 50)
-    public String updatedBy;
-    @Column(length = 50)
-    public String deletedBy;
 }

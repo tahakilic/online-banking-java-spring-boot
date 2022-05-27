@@ -24,8 +24,8 @@ public class CreateAccountDTOValidator implements Validator<AccountDTO>{
         if (!(StringUtils.hasLength(accountDTO.branchCode()))) {
             throw new ValidationOperationException.AccountNotValidException("Account 'branchCode' can not be null or empty!");
         }
-        if (Objects.isNull(accountDTO.currencyType())) {
-            throw new ValidationOperationException.AccountNotValidException("Account 'currencyType' can not be null or empty!");
+        if (Objects.isNull(accountDTO.currencyCode())) {
+            throw new ValidationOperationException.AccountNotValidException("Account 'currencyCode' can not be null or empty!");
         }
         if (accountDTO.accountNumber()<1) {
             throw new ValidationOperationException.AccountNotValidException("Account 'accountNumber' can not be zero or negative!");

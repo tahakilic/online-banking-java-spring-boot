@@ -16,7 +16,7 @@ import java.util.Set;
 @Setter
 public class Customer extends BaseExtendEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private Long identityNumber;
     @Column(nullable = false)
     private String name;

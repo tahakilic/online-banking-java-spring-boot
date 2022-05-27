@@ -2,7 +2,7 @@ package com.patikadev.onlinebanking.model.response;
 
 import com.patikadev.onlinebanking.model.enums.AccountStatus;
 import com.patikadev.onlinebanking.model.enums.AccountType;
-import com.patikadev.onlinebanking.model.enums.CurrencyType;
+import com.patikadev.onlinebanking.model.enums.CurrencyCode;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -12,7 +12,7 @@ public record AccountResponse(Long id,
                               String bankCode,
                               String branchCode,
                               Long accountNumber,
-                              CurrencyType currencyType,
+                              CurrencyCode currencyCode,
                               AccountStatus accountStatus,
                               AccountType accountType,
                               Date createdAt,

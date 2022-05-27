@@ -40,11 +40,12 @@ public class CustomerController {
     }
 
     @PutMapping
-    public ResponseEntity<String> updateCustomer(@RequestBody UpdateCustomerRequest customerRequest) {
-        idValidator.validate(customerRequest.id());
-        updateCustomerRequestValidator.validate(customerRequest);
-        emailValidator.validate(customerRequest.contactInformation().primaryEmail());
-        return ResponseEntity.ok(customerService.updateCustomer(customerRequest));
+    public ResponseEntity<String> updateCustomer(@RequestBody UpdateCustomerRequest updateCustomerRequest) {
+        idValidator.validate(updateCustomerRequest.id());
+        updateCustomerRequestValidator.validate(updateCustomerRequest);
+        emailValidator.validate(updateCustomerRequest.contactInformation().primaryEmail());
+        return ResponseEntity.ok(customerService.updateCustomer(updateCustomerRequest));
+
     }
 
     @DeleteMapping(path = "/{customerId}")

@@ -21,4 +21,16 @@ public final class ServiceOperationException {
             super(message);
         }
     }
+
+    public static class AccountBalanceNotEmpty extends BaseException {
+        public AccountBalanceNotEmpty(String message) {
+            super(message);
+        }
+    }
+
+    public static class TransferNotValidException extends BaseException {
+        public TransferNotValidException(String message) {
+            super(message);
+        }
+    }
 }

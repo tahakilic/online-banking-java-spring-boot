@@ -16,14 +16,33 @@ public final class ValidationOperationException {
         }
     }
 
-    public static class EmailFormatIsIncorrectException extends BaseException{
-        public EmailFormatIsIncorrectException(String message) {
+
+    public static class AccountNotValidException extends BaseException {
+        public AccountNotValidException(String message) {
             super(message);
         }
     }
 
-    public static class AccountNotValidException extends BaseException {
-        public AccountNotValidException(String message) {
+    public static class AmountNotValidException extends BaseException {
+        public AmountNotValidException(String message) {
+            super(message);
+        }
+    }
+
+    public static class EmailNotValidException extends BaseException {
+        public EmailNotValidException(String message) {
+            super(message);
+        }
+    }
+
+    public static class IbanNotValidException extends BaseException {
+        public IbanNotValidException(String message) {
+            super(message);
+        }
+    }
+
+    public static class TransferNotValidException extends BaseException {
+        public TransferNotValidException(String message) {
             super(message);
         }
     }

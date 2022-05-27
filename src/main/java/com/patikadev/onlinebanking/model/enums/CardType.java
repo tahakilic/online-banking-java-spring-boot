@@ -1,5 +1,6 @@
 package com.patikadev.onlinebanking.model.enums;
 
 public enum CardType {
-    CREDIT,PREPAID;
+    CREDIT_CARD,
+    BANK_CARD
 }

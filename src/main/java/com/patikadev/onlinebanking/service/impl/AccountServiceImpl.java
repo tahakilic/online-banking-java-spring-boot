@@ -12,7 +12,9 @@ import com.patikadev.onlinebanking.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -32,8 +34,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public String createAccount(Long customerId, AccountDTO accountDTO) {
         Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new ServiceOperationException.CustomerNotValidException("Customer not found!"));
-
+                .orElseThrow(() -> new ServiceOperationException.AccountNotValidException("Account not found!"));
+        if(!(Objects.isNull(accountRepository.findByIban(accountDTO.iban())))){
+            throw new ServiceOperationException.AccountNotValidException("No more than one is created from the same iban!");
+        }
         Account account = accountConverter.accountRequestToAccount(customer,accountDTO);
         Account save = accountRepository.save(account);
         return save.getId() != null ?"successful":"unsuccessful";
@@ -42,7 +46,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<AccountResponse> getCustomerAllAccount(Long customerId) {
         Customer customer = customerRepository.findById(customerId)
-                .orElseThrow(() -> new ServiceOperationException.CustomerNotValidException("Customer not found!"));
+                .orElseThrow(() -> new ServiceOperationException.AccountNotValidException("Account not found!"));
         List<Account> customerAccounts = accountRepository.findByCustomer(customer);
         List<AccountResponse> accountResponse = accountConverter.accountListToAccountResponseList(customerAccounts);
         return accountResponse;
@@ -51,6 +55,15 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String deleteAccount(Long accountId) {
-        return null;
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new ServiceOperationException.CustomerNotValidException("Account not found!"));
+
+        if(account.getBalance().compareTo(new BigDecimal(0)) != 0){
+            throw new ServiceOperationException.AccountBalanceNotEmpty("Account balance is not empty!");
+        }
+        if(account.getBalance().compareTo(new BigDecimal(0))==0){
+            accountRepository.deleteById(accountId);
+        }
+        return "successful";
     }
 }

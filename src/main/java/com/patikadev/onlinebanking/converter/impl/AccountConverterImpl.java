@@ -21,7 +21,7 @@ public class AccountConverterImpl implements AccountConverter {
                                     account.getBankCode(),
                                     account.getBranchCode(),
                                     account.getAccountNumber(),
-                                    account.getCurrencyType(),
+                                    account.getCurrencyCode(),
                                     account.getAccountStatus(),
                                     account.getAccountType(),
                                     account.getCreatedAt(),
@@ -47,7 +47,7 @@ public class AccountConverterImpl implements AccountConverter {
                     account.getBankCode(),
                     account.getBranchCode(),
                     account.getAccountNumber(),
-                    account.getCurrencyType(),
+                    account.getCurrencyCode(),
                     account.getAccountStatus(),
                     account.getAccountType(),
                     account.getCreatedAt(),
@@ -63,7 +63,7 @@ public class AccountConverterImpl implements AccountConverter {
         Account account=new Account();
         account.setAccountType(accountDTO.accountType());
         account.setAccountNumber(accountDTO.accountNumber());
-        account.setCurrencyType(accountDTO.currencyType());
+        account.setCurrencyCode(accountDTO.currencyCode());
         account.setBankCode(accountDTO.bankCode());
         account.setBranchCode(accountDTO.branchCode());
         account.setAccountNumber(accountDTO.accountNumber());

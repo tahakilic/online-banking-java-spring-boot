@@ -2,7 +2,7 @@ package com.patikadev.onlinebanking.model.entity;
 
 import com.patikadev.onlinebanking.model.enums.AccountStatus;
 import com.patikadev.onlinebanking.model.enums.AccountType;
-import com.patikadev.onlinebanking.model.enums.CurrencyType;
+import com.patikadev.onlinebanking.model.enums.CurrencyCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class Account extends BaseEntity {
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String iban;
 
     @Column(nullable = false)
@@ -30,7 +30,7 @@ public class Account extends BaseEntity {
 
     @Column(nullable = false)
     @Enumerated(EnumType.ORDINAL)
-    private CurrencyType currencyType;
+    private CurrencyCode currencyCode;
 
     @Enumerated(EnumType.ORDINAL)
     private AccountStatus accountStatus;
@@ -41,6 +41,7 @@ public class Account extends BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date blockedAt;
 
@@ -49,14 +50,17 @@ public class Account extends BaseEntity {
     private Date canBeActiveAt;
 
     @Column(nullable = false)
+    @PositiveOrZero(message = "balance must be greater than or equal to zero!")
     private BigDecimal balance=BigDecimal.ZERO;
 
     @Column(nullable = false)
-    @PositiveOrZero
+    @PositiveOrZero(message = "lockedBalance must be greater than or equal to zero!")
     private BigDecimal lockedBalance=BigDecimal.ZERO;
 
     @ManyToOne
     private Customer customer;
+
+
 
 
 }

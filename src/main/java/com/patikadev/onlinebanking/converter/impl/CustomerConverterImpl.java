@@ -48,7 +48,7 @@ public class CustomerConverterImpl implements CustomerConverter {
                 createCustomerRequest.birthDay(),
                 createCustomerRequest.gender(),
                 createCustomerRequest.contactInformation());
-
+        customer.setCreatedAt(new Date());
         customer.addAddress(customerAddressDTOToCustomerAddress(createCustomerRequest.customerAddress()));
 
         customer.addAccount(AccountConverterImpl.accountDTOToAccount(createCustomerRequest.account()));
