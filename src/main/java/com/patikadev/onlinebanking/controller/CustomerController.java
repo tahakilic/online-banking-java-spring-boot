@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/customers")
 @RequiredArgsConstructor
+@RequestMapping(path = "/api/customers")
 public class CustomerController {
     private final CustomerService customerService;
     private final IDValidator idValidator;
@@ -67,6 +67,12 @@ public class CustomerController {
     public ResponseEntity<List<CustomerAddressResponse>> getCustomerAllAddress(@PathVariable Long customerId) {
         idValidator.validate(customerId);
         return ResponseEntity.ok(customerService.getCustomerAllAddress(customerId));
+    }
+
+    @GetMapping(path = "/addresses/{customerAddressId}")
+    public ResponseEntity<CustomerAddressResponse> getAddress(@PathVariable Long customerAddressId) {
+        idValidator.validate(customerAddressId);
+        return ResponseEntity.ok(customerService.getAddress(customerAddressId));
     }
 
     @PostMapping(path = "/{customerId}/addresses")

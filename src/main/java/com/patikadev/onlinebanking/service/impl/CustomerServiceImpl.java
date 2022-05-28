@@ -105,6 +105,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public CustomerAddressResponse getAddress(Long customerAddressId) {
+        CustomerAddress customerAddress = customerAddressRepository.findById(customerAddressId).orElseThrow(() -> new ServiceOperationException.CustomerAddressNotValidException("Customer Address not found!"));
+        CustomerAddressResponse customerAddressResponse = customerAddressConverter.customerAddressToCustomerAddressResponse(customerAddress);
+        return customerAddressResponse;
+    }
+
+    @Override
     public String addCustomerAddress(Long id,CustomerAddressDTO customerAddressDTO) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new ServiceOperationException.CustomerNotValidException("Customer not found!"));

@@ -81,7 +81,7 @@ public class TransferServiceImpl implements TransferService {
 
         TransferAccount transferAccount = transferConverter.toTransferAccount(toNewAccount, fromNewAccount, transferRequest, currencyResponse);
         TransferAccount save = transferAccountRepository.save(transferAccount);
-        //validator işlemi yapılacak
+
 
         return save.getId() != null ?"successful":"unsuccessful";
     }

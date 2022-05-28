@@ -31,13 +31,11 @@ public class Card extends BaseEntity {
     private BigDecimal balance=BigDecimal.ZERO;
 
     @Column(nullable = false)
-    private BigDecimal lockedBalance=BigDecimal.ZERO;
-
-    @Column(nullable = false)
     private CurrencyCode currencyCode=CurrencyCode.TRY;
 
-    private int cardLimit;
-    private int currentLimit;
+    private BigDecimal cardLimit; //kredi kartı ise zorunlu
+
+    private BigDecimal currentLimit;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date creatAt;
@@ -46,9 +44,11 @@ public class Card extends BaseEntity {
     private Date blockedAt;
 
     @Enumerated(EnumType.ORDINAL)
-    private CardStatus cardStatus;
+    @Column(nullable = false)
+    private CardStatus cardStatus=CardStatus.ACTIVE;
 
     @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
     private CardType cardType;
 
     @ManyToOne

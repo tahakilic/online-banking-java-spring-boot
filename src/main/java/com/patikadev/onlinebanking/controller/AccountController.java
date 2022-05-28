@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/accounts")
 @RequiredArgsConstructor
+@RequestMapping(path = "/api/accounts")
 public class AccountController {
     private final IDValidator idValidator;
     private final AccountService accountService;

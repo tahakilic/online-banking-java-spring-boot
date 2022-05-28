@@ -24,9 +24,9 @@ public class CustomerAddressConverterImpl implements CustomerAddressConverter {
 
     @Override
     public List<CustomerAddressResponse> customerAddressListToCustomerAddressResponseList(List<CustomerAddress> customerAddressList) {
-        List<CustomerAddressResponse> customerAddressDTOList=new ArrayList<>();
-        for(CustomerAddress customerAddress:customerAddressList){
-            customerAddressDTOList.add(new CustomerAddressResponse(customerAddress.getId(),customerAddress.getCountry(),
+        List<CustomerAddressResponse> customerAddressDTOList = new ArrayList<>();
+        for (CustomerAddress customerAddress : customerAddressList) {
+            customerAddressDTOList.add(new CustomerAddressResponse(customerAddress.getId(), customerAddress.getCountry(),
                     customerAddress.getCity(),
                     customerAddress.getDistrict(),
                     customerAddress.getAddressType(),
@@ -38,13 +38,23 @@ public class CustomerAddressConverterImpl implements CustomerAddressConverter {
 
     @Override
     public CustomerAddress customerAddressDTOToCustomerAddress(Customer customer, CustomerAddressDTO customerAddressDTO) {
-       CustomerAddress customerAddress=new CustomerAddress();
-       customerAddress.setCustomer(customer);
-       customerAddress.setAddressType(customerAddressDTO.addressType());
-       customerAddress.setCountry(customerAddressDTO.country());
-       customerAddress.setCity(customerAddressDTO.city());
-       customerAddress.setDistrict(customerAddressDTO.district());
-       customerAddress.setDescription(customerAddressDTO.description());
+        CustomerAddress customerAddress = new CustomerAddress();
+        customerAddress.setCustomer(customer);
+        customerAddress.setAddressType(customerAddressDTO.addressType());
+        customerAddress.setCountry(customerAddressDTO.country());
+        customerAddress.setCity(customerAddressDTO.city());
+        customerAddress.setDistrict(customerAddressDTO.district());
+        customerAddress.setDescription(customerAddressDTO.description());
         return customerAddress;
+    }
+
+    @Override
+    public CustomerAddressResponse customerAddressToCustomerAddressResponse(CustomerAddress customerAddress) {
+        return new CustomerAddressResponse(customerAddress.getId(),
+                customerAddress.getCountry(),
+                customerAddress.getCity(),
+                customerAddress.getDistrict(),
+                customerAddress.getAddressType(),
+                customerAddress.getDescription());
     }
 }

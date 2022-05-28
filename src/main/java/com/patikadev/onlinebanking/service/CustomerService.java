@@ -24,4 +24,6 @@ public interface CustomerService {
     String addCustomerAddress(Long id,CustomerAddressDTO customerAddressDTO);
 
     String deleteCustomerAddress(Long customerAddressId);
+
+    CustomerAddressResponse getAddress(Long customerAddressId);
 }

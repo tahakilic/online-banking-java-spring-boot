@@ -33,4 +33,10 @@ public final class ServiceOperationException {
             super(message);
         }
     }
+
+    public static class CardNotValidException extends BaseException {
+        public CardNotValidException(String message) {
+            super(message);
+        }
+    }
 }
