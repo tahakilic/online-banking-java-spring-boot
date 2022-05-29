@@ -108,7 +108,7 @@ public class CardServiceImpl implements CardService {
     public CreditCardDebtResponse getCreditCardDebt(Long cardNumber) {
         Card creditCard = cardRepository.findByCardNumber(cardNumber);
         if (Objects.isNull(creditCard)) {
-            throw new ServiceOperationException.CardNotValidException("cardNumber could not match the Card!");
+            throw new ServiceOperationException.CardNotValidException("Card number is not found!");
         }
         if (creditCard.getCardType() == CardType.BANK_CARD) {
             throw new ServiceOperationException.CardNotValidException("Bank card can not be debited!");
