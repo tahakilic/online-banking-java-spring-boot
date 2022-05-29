@@ -5,19 +5,23 @@ import com.patikadev.onlinebanking.converter.CustomerConverter;
 import com.patikadev.onlinebanking.exception.ServiceOperationException;
 import com.patikadev.onlinebanking.model.dto.CustomerAddressDTO;
 import com.patikadev.onlinebanking.model.entity.Account;
+import com.patikadev.onlinebanking.model.entity.Card;
 import com.patikadev.onlinebanking.model.entity.Customer;
 import com.patikadev.onlinebanking.model.entity.CustomerAddress;
+import com.patikadev.onlinebanking.model.enums.CardType;
 import com.patikadev.onlinebanking.model.request.CreateCustomerRequest;
 import com.patikadev.onlinebanking.model.request.UpdateCustomerRequest;
 import com.patikadev.onlinebanking.model.response.CustomerAddressResponse;
 import com.patikadev.onlinebanking.model.response.CustomerResponse;
 import com.patikadev.onlinebanking.repository.AccountRepository;
+import com.patikadev.onlinebanking.repository.CardRepository;
 import com.patikadev.onlinebanking.repository.CustomerAddressRepository;
 import com.patikadev.onlinebanking.repository.CustomerRepository;
 import com.patikadev.onlinebanking.service.CustomerService;
 import com.patikadev.onlinebanking.validator.IbanValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -33,6 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerAddressRepository customerAddressRepository;
     private final IbanValidator ibanValidator;
     private final AccountRepository accountRepository;
+    private final CardRepository cardRepository;
 
     @Override
     public CustomerResponse getCustomer(Long id) {
@@ -68,14 +73,25 @@ public class CustomerServiceImpl implements CustomerService {
         return save.getId() != null ?"successful":"unsuccessful";
     }
 
+    @Transactional
     @Override
     public String deleteCustomer(Long id) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new ServiceOperationException.CustomerNotValidException("Customer not found!"));
-        List<Account> byCustomer = accountRepository.findByCustomer(customer);
-        for(Account account:byCustomer){
+        List<Account> accounts = accountRepository.findByCustomer(customer);
+        List<Card> cards= cardRepository.findByCustomer(customer);
+
+        for(Account account:accounts){
             if(account.getBalance().compareTo(new BigDecimal(0))!=0){
                 throw new ServiceOperationException.AccountNotValidException("Account balance is not empty!");
+            }
+        }
+        for(Card card:cards){
+            if(card.getBalance().compareTo(new BigDecimal(0))!=0){
+                if(card.getCardType()== CardType.CREDIT_CARD){
+                    throw new ServiceOperationException.CardNotValidException("Credit Card balance is not empty!");
+                }
+                throw new ServiceOperationException.CardNotValidException("Bank Card balance is not empty!");
             }
         }
 
@@ -83,6 +99,7 @@ public class CustomerServiceImpl implements CustomerService {
         return "successful";
     }
 
+    @Transactional
     @Override
     public String updateCustomerAddress(Long id, CustomerAddressDTO customerAddressDTO) {
         CustomerAddress customerAddress = customerAddressRepository.findById(id)
@@ -111,6 +128,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerAddressResponse;
     }
 
+    @Transactional
     @Override
     public String addCustomerAddress(Long id,CustomerAddressDTO customerAddressDTO) {
         Customer customer = customerRepository.findById(id)
@@ -121,6 +139,7 @@ public class CustomerServiceImpl implements CustomerService {
         return save.getId() != null ?"successful":"unsuccessful";
     }
 
+    @Transactional
     @Override
     public String deleteCustomerAddress(Long customerAddressId) {
         customerAddressRepository.findById(customerAddressId)

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public record CardResponse(Long id,
-                           String cardNumber,
+                           Long cardNumber,
                            String cardSecurityNumber,
                            String cardExpirationDate,
                            String cardPassword,

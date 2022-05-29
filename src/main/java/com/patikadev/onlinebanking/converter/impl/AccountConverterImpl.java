@@ -8,6 +8,7 @@ import com.patikadev.onlinebanking.model.enums.AccountStatus;
 import com.patikadev.onlinebanking.model.response.AccountResponse;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -71,5 +72,11 @@ public class AccountConverterImpl implements AccountConverter {
         account.setAccountStatus(AccountStatus.ACTIVE);
         account.setCreatedAt(new Date());
         return account;
+    }
+
+    @Override
+    public Account atmToAccount(Account toAccount, BigDecimal amount) {
+        toAccount.setBalance(toAccount.getBalance().add(amount));
+        return toAccount;
     }
 }

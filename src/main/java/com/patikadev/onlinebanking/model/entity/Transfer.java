@@ -15,6 +15,7 @@ public class Transfer extends BaseEntity {
 
     @Column(nullable = false)
     private BigDecimal amount;
+    private CurrencyCode amountCurrencyCode;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private CurrencyCode fromCurrencyCode;
@@ -23,7 +24,6 @@ public class Transfer extends BaseEntity {
     private CurrencyCode toCurrencyCode;
     @Column(nullable = false)
     private BigDecimal exchangeRate;
-    private String description;
     private Date createdAt;
 
 

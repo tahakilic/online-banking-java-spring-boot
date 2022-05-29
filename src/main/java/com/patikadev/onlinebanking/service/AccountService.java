@@ -3,6 +3,7 @@ package com.patikadev.onlinebanking.service;
 import com.patikadev.onlinebanking.model.dto.AccountDTO;
 import com.patikadev.onlinebanking.model.response.AccountResponse;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface AccountService {
@@ -12,4 +13,7 @@ public interface AccountService {
     List<AccountResponse> getCustomerAllAccount(Long customerId);
 
     String deleteAccount(Long accountId);
+
+    String atmPayToAccount(String iban, BigDecimal amount);
+
 }

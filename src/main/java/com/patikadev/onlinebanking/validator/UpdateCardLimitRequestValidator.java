@@ -13,9 +13,6 @@ public class UpdateCardLimitRequestValidator implements Validator<UpdateCardLimi
         if(Objects.isNull(updateCardLimitRequest)){
             throw new ValidationOperationException.CardNotValidException("updateCardLimitRequest can not be null or empty!");
         }
-        if(Objects.isNull(updateCardLimitRequest.cardLimit())){
-            throw new ValidationOperationException.CardNotValidException(" cardLimit can not be null or empty!");
-        }
         if(Objects.isNull(updateCardLimitRequest.currentLimit())){
             throw new ValidationOperationException.CardNotValidException(" currentLimit can not be null or empty!");
         }

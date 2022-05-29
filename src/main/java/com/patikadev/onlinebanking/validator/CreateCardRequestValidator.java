@@ -17,9 +17,6 @@ public class CreateCardRequestValidator implements Validator<CreateCardRequest>{
         if(Objects.isNull(createCardRequest)){
             throw new ValidationOperationException.CardNotValidException("Card can not be null or empty!");
         }
-        if(!(StringUtils.hasLength(createCardRequest.cardNumber()))){
-            throw new ValidationOperationException.CardNotValidException("Card 'cardNumber' can not be null or empty!");
-        }
         if(!(StringUtils.hasLength(createCardRequest.cardSecurityNumber()))){
             throw new ValidationOperationException.CardNotValidException("Card 'cardSecurityNumber' can not be null or empty!");
         }
@@ -35,17 +32,18 @@ public class CreateCardRequestValidator implements Validator<CreateCardRequest>{
         if(createCardRequest.currentLimit()!=null && createCardRequest.currentLimit().compareTo(new BigDecimal(0))<=0){
             throw new ValidationOperationException.CardNotValidException("Card 'currentLimit' can not be negative or zero!");
         }
-        if(Objects.isNull(createCardRequest.cardStatus())){
-            throw new ValidationOperationException.CardNotValidException("Card 'cardStatus' can not be null or empty!");
-        }
         if(Objects.isNull(createCardRequest.cardType())){
             throw new ValidationOperationException.CardNotValidException("Card 'cardType' can not be null or empty!");
         }
         if(createCardRequest.cardType()== CardType.CREDIT_CARD && createCardRequest.cardLimit()==null){
             throw new ValidationOperationException.CardNotValidException("Credit card 'cardLimit' is mandatory!");
         }
-        if(createCardRequest.cardType()== CardType.CREDIT_CARD && createCardRequest.currentLimit()==null){
-            throw new ValidationOperationException.CardNotValidException("Credit card 'currentLimit' is mandatory!");
+        if(createCardRequest.cardType()==CardType.BANK_CARD && createCardRequest.cardLimit()!=null){
+            throw new ValidationOperationException.CardNotValidException("No limit can be placed on the bank card!");
+        }
+
+        if(createCardRequest.cardSecurityNumber().length()!=3){
+            throw new ValidationOperationException.CardNotValidException("cardSecurityNumber must be three digits!");
         }
     }
 }

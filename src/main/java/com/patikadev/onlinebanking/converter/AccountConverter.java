@@ -5,6 +5,7 @@ import com.patikadev.onlinebanking.model.entity.Account;
 import com.patikadev.onlinebanking.model.entity.Customer;
 import com.patikadev.onlinebanking.model.response.AccountResponse;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface AccountConverter  {
@@ -12,4 +13,6 @@ public interface AccountConverter  {
     List<AccountResponse> accountListToAccountResponseList(List<Account> account);
 
     Account accountRequestToAccount(Customer customer, AccountDTO accountRequest);
+
+    Account atmToAccount(Account toAccount, BigDecimal amount);
 }

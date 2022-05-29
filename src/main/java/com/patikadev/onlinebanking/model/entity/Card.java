@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -16,9 +18,9 @@ import java.util.Date;
 public class Card extends BaseEntity {
 
     @Column(nullable = false,unique = true)
-    private String cardNumber;
+    private Long cardNumber;
 
-    @Column(nullable = false)
+    @Column(nullable = false,length = 3)
     private String cardSecurityNumber;
 
     @Column(nullable = false)

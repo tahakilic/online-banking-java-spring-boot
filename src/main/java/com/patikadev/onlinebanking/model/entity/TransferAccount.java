@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 @Getter
 @Setter
 public class TransferAccount extends Transfer {
-
+    private String description;
     @OneToOne
     private Account toAccount;
     @OneToOne
