@@ -30,3 +30,5 @@ git clone https://github.com/tahakilic/online-banking-java-spring-boot.git
 * Intellij yardımıyla projeyi açınız.
 * Projeyi çalıştırmadan önce `mvn clean install` yapınız.
 * `mvn clean install` sorunsuz çalıştıktan sonra projeyi run edebiliriz.
+
+## Api's
