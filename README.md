@@ -21,7 +21,7 @@ Online banka sistemi projemizin içerisinde müşteri yönetimi, hesap yönetimi
 
 ### Installing
 
-* İsterseniz ide üzerinden veya git üzerinden github reposunu yerel bilgisayarınıza clone ediniz.
+* IDE üzerinden veya git üzerinden github reposunu yerel bilgisayarınıza clone ediniz.
 
 ```
 git clone https://github.com/tahakilic/online-banking-java-spring-boot.git
