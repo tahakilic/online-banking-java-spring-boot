@@ -1,4 +1,5 @@
 # Online Banka Sistemi
+Bu proje Patika.Dev ile Norma sponsorluğunda düzenlenen Java Spring Boot bootcamp'in bitirme projesidir.
 
 Online banka sistemi projemizin içerisinde müşteri yönetimi, hesap yönetimi, kart yönetimi ve transfer yönetimi fonksiyonları mevcuttur. 
 * Müşteri yönetimi fonksiyonu içerisinde; müşteri yaratma, müşteri güncelleme, müşteri silme işlemleri mevcuttur. 
