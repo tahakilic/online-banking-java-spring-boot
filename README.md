@@ -127,8 +127,9 @@ GET **`localhost:8080/api/customers/addresses/{customerAddressId}`**  ->   `{cus
 GET **`localhost:8080/api/customers/{customerId}/addresses`**  ->    `{customerId}` yazan yere müşterinin id'si yazılmalıdır. <br>
 
 #### Müşteri Adress Silme
-DELETE **`localhost:8080/api/customers/addresses/{customerAddressId}`**  ->   `{customerAddressId}` yazan yere adresin id'si yazılmalıdır. <br>
-
+DELETE **`localhost:8080/api/customers/addresses/{customerAddressId}`**  ->   `{customerAddressId}` yazan yere adresin id'si yazılmalıdır. 
+<br>
+<br>
 
 ### Hesap APIS
 #### Hesap Oluşturma
@@ -155,6 +156,8 @@ DELETE **`localhost:8080/api/accounts/{accountId}`**  ->   `{accountId}` yazan y
 
 #### ATM'den Hesaba Para Yükleme
 PUT **`localhost:8080/api/accounts?iban=TR000000000000000000000001&amount=100`**  <br>   `iban` değeri paranın gönderileceği hesabın ibanı yazılmalıdır. `amount` değeri paranın miktarı yazılmalıdır.<br>
+
+<br>
 
 ### Kart APIS
 #### Kart Oluşturma
@@ -218,6 +221,7 @@ Body:
     "cardPassword":"123321"
 }
 ```
+<br><br>
 
 ### Transfer APIS
 #### Hesaplar Arası Para Transferi
