@@ -30,7 +30,7 @@ public class TransferServiceImpl implements TransferService {
     private final TransferFacade transferFacade;
     private final TransferCardRepository transferCardRepository;
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     @Override
     public String accountToAccount(String fromIban, String toIban, TransferRequest transferRequest,BigDecimal amount) {
         Account fromAccount = accountRepository.findByIban(fromIban);
@@ -52,7 +52,7 @@ public class TransferServiceImpl implements TransferService {
         return save.getId() != null ?"successful":"unsuccessful";
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     @Override
     public String accountToCard(BigDecimal amount, String fromAccountIban, Long toCardNumber) {
         Account fromAccount = accountRepository.findByIban(fromAccountIban);
